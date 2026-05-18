@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMKN 13 MEDAN</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow-x:hidden;
+    padding:20px;
+}
+
+.bg1,.bg2{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    filter:blur(5px);
+}
+
+.bg1{
+    width:350px;
+    height:350px;
+    top:-120px;
+    left:-100px;
+}
+
+.bg2{
+    width:400px;
+    height:400px;
+    bottom:-140px;
+    right:-120px;
+}
+
+.container{
+    width:1100px;
+    min-height:650px;
+    display:flex;
+    border-radius:30px;
+    overflow:hidden;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(18px);
+    box-shadow:0 20px 50px rgba(0,0,0,0.4);
+}
+
+.left{
+    flex:1;
+    background:linear-gradient(135deg,#1e3a8a,#0f172a);
+    color:white;
+    padding:60px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.logo{
+    font-size:42px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.left p{
+    line-height:1.8;
+}
+
+.features{
+    margin-top:30px;
+}
+
+.feature{
+    background:rgba(255,255,255,0.1);
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:15px;
+}
+
+.right{
+    flex:1;
+    background:white;
+    padding:50px;
+}
+
+h2{
+    text-align:center;
+    color:#1e3a8a;
+    margin-bottom:25px;
+    font-size:32px;
+}
+
+.tabs{
+    display:flex;
+    margin-bottom:25px;
+    border-radius:15px;
+    overflow:hidden;
+    border:1px solid #ddd;
+}
+
+.tab{
+    flex:1;
+    text-align:center;
+    padding:15px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.3s;
+    background:#f1f5f9;
+}
+
+.tab.active{
+    background:#2563eb;
+    color:white;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:#334155;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:14px;
+    border-radius:14px;
+    border:1px solid #cbd5e1;
+    font-size:15px;
+}
+
+.btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:15px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.dashboard{
+    display:none;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-top:20px;
+}
+
+.card{
+    background:#eff6ff;
+    padding:20px;
+    border-radius:20px;
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#1e3a8a;
+}
+
+.majors{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-top:20px;
+}
+
+.major{
+    padding:20px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:white;
+    text-align:center;
+}
+
+.logout{
+    margin-top:25px;
+    background:#ef4444;
+}
+
+@media(max-width:950px){
+    .container{
+        flex-direction:column;
+    }
+
+    .cards,
+    .majors{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg1"></div>
+<div class="bg2"></div>
+
+<div class="container">
+
+<div class="left">
+    <div class="logo">🎓 SMKN 13 MEDAN</div>
+
+    <p>
+        Website sekolah SMKN 13 MEDAN.
+    </p>
+
+    <div class="features">
+        <div class="feature">✅ Login Admin & User</div>
+        <div class="feature">✅ Dashboard Modern</div>
+        <div class="feature">✅ Informasi Jurusan</div>
+        <div class="feature">✅ Responsive Design</div>
+    </div>
+</div>
+
+<div class="right">
+
+<div id="loginPage">
+
+<h2> Sekolah SMKN 13 MEDAN</h2>
+
+<div class="tabs">
+    <div class="tab active" onclick="switchRole('admin')">admin</div>
+    <div class="tab" onclick="switchRole('user')">User</div>
+</div>
+
+<div class="input-group">
+    <label>Username</label>
+    <input type="text" id="username">
+</div>
+
+<div class="input-group">
+    <label>Password</label>
+    <input type="password" id="password">
+</div>
+
+<div class="input-group">
+    <label>Pilih Jurusan</label>
+    <select id="major">
+        <option>Rekayasa Perangkat Lunak</option>
+        <option>Teknik Komputer Jaringan</option>
+        <option>Desain Komunikasi Visual</option>
+        <option>Akuntansi</option>
+        <option>Manajemen Perkantoran</option>
+    </select>
+</div>
+
+<button class="btn" onclick="login()">Masuk</button>
+
+<br><br>
+
+<center>
+Password Admin : <b>admin123</b><br>
+Password User : <b>user123</b>
+</center>
+
+</div>
+
+<div class="dashboard" id="dashboard">
+
+<h1 id="welcome"></h1>
+
+<div class="cards">
+
+<div class="card">
+    <h3>📚 Data Siswa</h3>
+    <p>Kelola data siswa.</p>
+</div>
+
+<div class="card">
+    <h3>📝 Jadwal</h3>
+    <p>Jadwal pelajaran sekolah SMKN 13 MEDAN.</p>
+</div>
+
+<div class="card">
+    <h3>🏆 Nilai</h3>
+    <p>Data nilai siswa.</p>
+</div>
+
+<div class="card">
+    <h3>📢 Pengumuman</h3>
+    <p>Informasi sekolah terbaru.</p>
+</div>
+
+</div>
+
+<h2 style="margin-top:30px;">Jurusan Sekolah</h2>
+
+<div class="majors">
+
+<div class="major">
+    <h3>RPL</h3>
+    <p>Rekayasa Perangkat Lunak</p>
+</div>
+
+<div class="major">
+    <h3>TKJ</h3>
+    <p>Teknik Komputer Jaringan</p>
+</div>
+
+<div class="major">
+    <h3>DKV</h3>
+    <p>Desain Komunikasi Visual</p>
+</div>
+
+<div class="major">
+    <h3>AKL</h3>
+    <p>Akuntansi Keuangan</p>
+</div>
+
+<div class="major">
+    <h3>MP</h3>
+    <p>Manajemen Perkantoran</p>
+</div>
+
+<div class="major">
+    <h3>BDP</h3>
+    <p>Bisnis Daring Pemasaran</p>
+</div>
+
+</div>
+
+<button class="btn logout" onclick="logout()">Logout</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let role = "admin";
+
+function switchRole(selected){
+
+    role = selected;
+
+    let tabs = document.querySelectorAll('.tab');
+
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    if(selected === 'admin'){
+        tabs[0].classList.add('active');
+    }else{
+        tabs[1].classList.add('active');
+    }
+}
+
+function login(){
+
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+    let major = document.getElementById('major').value;
+
+    if(role === 'admin' && password === 'admin123'){
+        openDashboard("Admin " + username, major);
+    }
+
+    else if(role === 'user' && password === 'user123'){
+        openDashboard("User " + username, major);
+    }
+
+    else{
+        alert("Password salah!");
+    }
+}
+
+function openDashboard(name, major){
+
+    document.getElementById('loginPage').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+
+    document.getElementById('welcome').innerHTML =
+     "SELAMAT DATANG ADMIN";  
+}
+
+function logout(){
+    location.reload();
+}
+
+</script>
+
+</body>
+</html>
